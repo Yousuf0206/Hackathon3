@@ -1,6 +1,6 @@
 "use client";
 
-import { ICart } from "@/types";
+import { ICart } from "@/src/types";
 import { useEffect, useState } from "react";
 
 export default function CartTotals() {
