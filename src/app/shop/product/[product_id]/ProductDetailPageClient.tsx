@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React from "react";
 import ProductDetailExtraInfoSection from "@/src/components/sections/shop/product-detail/ProductDetailExtraInfoSection";

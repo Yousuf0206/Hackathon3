@@ -149,7 +149,9 @@
 //       </div>
 //     </div>
 //   );
-// }import React from "react";
+// }
+
+import React from "react";
 import ProductDetailPageClient from "../[product_id]/ProductDetailPageClient"
 
 interface PageProps {
