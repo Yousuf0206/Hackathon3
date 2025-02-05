@@ -3,11 +3,11 @@ import { Buffer } from 'buffer'; // Correct import for Buffer
 import fetch from 'node-fetch';
 
 const client = createClient({
-  projectId: '2yfessga',
-  dataset: 'production',
+  projectId: 'NEXT_PUBLIC_SANITY_PROJECT_ID',
+  dataset: 'NEXT_PUBLIC_SANITY_DATASET',
   useCdn: true,
   apiVersion: '2025-01-13',
-  token: 'skk3AeHabXg5oGREIhUpbgXo3Z3QHlJeIeXybtGwEJvdAnIaE4Q58ybWVlO1idQy9a502aZmfrgiBL9wM8HW1v6LYXkOGQ0IhSsmrcHJEF8bq4fb4Ytrqw80vln2r4Eqx0HlYLxaK6YPTRDdBSKGNJmWHwlNGkV4SpIvtRBfmhV4y60f4oiA',
+  token: 'SECRET_API_TOKEN',
 });
 
 async function uploadImageToSanity(imageUrl) {

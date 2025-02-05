@@ -1,6 +1,6 @@
 import Hero from "@/src/components/common/Hero";
 import BlogSection from "./sections/blog-section";
-import RecentBlog from "../../../../recent-blog";
+import RecentBlog from "./sections/recent-blog";
 
 export default function BlogPage() {
   return (

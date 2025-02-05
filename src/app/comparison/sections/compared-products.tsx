@@ -5,6 +5,7 @@ import StarIcon from "@/src/components/icons/star-icon";
 import { Product } from "@/src/lib/constants"; // Ensure this is imported correctly
 import Image from "next/image";
 
+
 // Props type for Products component
 interface ProductsProps {
   comparison: Product[];

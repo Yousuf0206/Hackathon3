@@ -45,8 +45,9 @@ function CheckoutDetailSection() {
     })
       .then((res) => {
         if (typeof window !== undefined) {
-          if (res?.response?.data?.url) {
-            window.location = res?.response?.data?.url;
+          const responseData = res?.response?.data as { url?: string };
+          if (responseData?.url) {
+            window.location.href = responseData.url;
           }
         }
         setLoading(false);
