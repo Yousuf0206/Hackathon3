@@ -155,33 +155,83 @@
 // [product_id].tsx (in pages directory)
 
 // app/shop/product/[product_id]/page.tsx
-import React from 'react';
-import ProductDetailPageClient from '../[product_id]/ProductDetailPageClient';
+"use client";
 
-interface PageProps {
-  params: {
-    product_id: string;
-  };
+import React, { useEffect, useState } from "react";
+import ProductDetailExtraInfoSection from "@/src/components/sections/shop/product-detail/ProductDetailExtraInfoSection";
+import ProductDetailRelatedSection from "@/src/components/sections/shop/product-detail/ProductDetailRelatedSection";
+import ProductDetailShowcaseSection from "@/src/components/sections/shop/product-detail/ProductDetailShowcaseSection";
+import ProductDetailTopSection from "@/src/components/sections/shop/product-detail/ProductDetailTopSection";
+import { Separator } from "@/src/components/ui/separator";
+import Image from "next/image"; // Next.js Image component
+import { useParams } from "next/navigation"; // Import useParams from next/navigation
+
+// Define the Product interface to avoid using 'any'
+interface IProduct {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  discountPercentage: number;
+  isNew: boolean;
+  quantity?: number;
+  tags: string[];
 }
 
-const ProductDetailPage: React.FC<PageProps> = ({ params }) => {
-  return <ProductDetailPageClient product_id={params.product_id} />;
-};
+// Product Detail Page Component
+export default function ProductDetailPage() {
+  const { product_id } = useParams(); // Use useParams to get product_id from the URL
+  const [productData, setProductData] = useState<IProduct | null>(null); // Use IProduct type for the state
 
-// Using generateStaticParams to generate static params for dynamic routes
-export async function generateStaticParams() {
-  try {
-    const products = await fetch('https://template6-six.vercel.app/api/products')
-      .then(res => res.json());
+  // Use useEffect to fetch product data when the product_id changes
+  useEffect(() => {
+    if (product_id) {
+      // Replace with actual API call to fetch the product data
+      fetch(`/api/products/${product_id}`)
+        .then((response) => response.json())
+        .then((data: IProduct) => setProductData(data)) // Correctly type the response
+        .catch((error) => console.error("Error fetching product data:", error));
+    }
+  }, [product_id]);
 
-    // Map through the products and return the static paths
-    return products.map((product: { product_id: string }) => ({
-      product_id: product.product_id,
-    }));
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    return [];
+  if (!productData) {
+    return <div>Loading...</div>; // Show a loading state until data is available
   }
-}
 
-export default ProductDetailPage;
+  return (
+    <div className="mt-24 lg:mt-8">
+      <ProductDetailTopSection product_id={product_id as string} />
+
+      <div className="mt-8 px-4 md:px-[50px] lg:px-[100px]">
+        <ProductDetailShowcaseSection productId={product_id as string} />
+      </div>
+
+      <div className="my-[40px]">
+        <Separator />
+      </div>
+
+      <div className="mt-8 px-4 md:px-[50px] lg:px-[100px]">
+        <ProductDetailExtraInfoSection product_id={product_id as string} />
+      </div>
+
+      <div className="my-[40px]">
+        <Separator />
+      </div>
+
+      <div className="mt-8 px-4 md:px-[50px] lg:px-[100px]">
+        <ProductDetailRelatedSection />
+      </div>
+
+      {/* Fixed Image */}
+      <div className="mt-8 flex justify-center">
+        <Image
+          src="/images/banner_icon_1.png"
+          alt="Banner Icon"
+          width={40}
+          height={40}
+        />
+      </div>
+    </div>
+  );
+}
