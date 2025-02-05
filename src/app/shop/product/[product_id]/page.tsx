@@ -151,8 +151,12 @@
 //   );
 // }
 
-import React from "react";
-import ProductDetailPageClient from "../[product_id]/ProductDetailPageClient"
+// [product_id]/page.tsx
+// [product_id].tsx (in pages directory)
+
+// app/shop/product/[product_id]/page.tsx
+import React from 'react';
+import ProductDetailPageClient from '../[product_id]/ProductDetailPageClient';
 
 interface PageProps {
   params: {
@@ -164,13 +168,20 @@ const ProductDetailPage: React.FC<PageProps> = ({ params }) => {
   return <ProductDetailPageClient product_id={params.product_id} />;
 };
 
+// Using generateStaticParams to generate static params for dynamic routes
 export async function generateStaticParams() {
-  // Fetch your dynamic route parameters here
-  const products = await fetch('https://template6-six.vercel.app/api/products').then(res => res.json());
+  try {
+    const products = await fetch('https://template6-six.vercel.app/api/products')
+      .then(res => res.json());
 
-  return products.map((product: { product_id: string }) => ({
-    product_id: product.product_id,
-  }));
+    // Map through the products and return the static paths
+    return products.map((product: { product_id: string }) => ({
+      product_id: product.product_id,
+    }));
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
 }
 
 export default ProductDetailPage;

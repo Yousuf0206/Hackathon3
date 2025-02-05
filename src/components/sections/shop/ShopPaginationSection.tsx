@@ -5,7 +5,7 @@ import {
   PaginationItem,
   PaginationLink,
   PaginationNext,
-} from "@/components/ui/pagination";
+} from "@/src/components/ui/pagination";
 
 function ShopPaginationSection() {
   return (
