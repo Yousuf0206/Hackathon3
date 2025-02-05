@@ -8,8 +8,12 @@
 
 const nextConfig = {
   images: {
-    domains : ["cdn.sanity.io"]
-  }
+    domains : ["cdn.sanity.io"],
+    experimental: {
+      turbo: true, // Enables Turbopack
+    },
+  },
+  
 }
 
 export default nextConfig

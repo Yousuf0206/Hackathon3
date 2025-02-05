@@ -243,7 +243,7 @@ export default function CartSection({
                 action={() => router.push("/comparison")}
               />
             </div>
-          </div>
+          //</div>
         ) : (
           <div></div>
         )}
